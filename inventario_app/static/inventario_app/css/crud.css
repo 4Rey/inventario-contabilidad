@@ -1,0 +1,97 @@
+/* ----------------------------------
+   Estilos específicos para CRUD
+   (CARGADO SOLO EN base_crud.html)
+   ---------------------------------- */
+
+/* Layout: Side-nav + Main */
+body { display: flex; height: 100vh; overflow: hidden; }
+aside.crud-nav { width: 240px; background: var(--color-primary); color: #fff; }
+main.crud-main { flex: 1; overflow-y: auto; padding: 2rem; }
+
+/* Side-nav enlaces */
+aside.crud-nav .nav-link {
+  display: flex; align-items: center;
+  padding: 0.75rem 1.25rem;
+  color: #fff; text-decoration: none;
+  transition: background 0.3s;
+}
+aside.crud-nav .nav-link i { margin-right: 0.75rem; }
+aside.crud-nav .nav-link.active,
+aside.crud-nav .nav-link:hover {
+  background: var(--color-secondary);
+}
+
+/* Encabezado CRUD */
+.crud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.crud-header h2 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-primary);
+}
+.btn-new {
+  background: var(--color-secondary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s;
+}
+.btn-new:hover {
+  background: var(--color-primary);
+}
+
+/* Tabla CRUD */
+.table-crud {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+.table-crud th,
+.table-crud td {
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+}
+.table-crud th {
+  background: var(--color-secondary);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+.table-crud td .actions i {
+  color: var(--color-primary);
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: color 0.2s;
+}
+.table-crud td .actions i:hover {
+  color: var(--color-secondary);
+}
+
+/* Modal blur */
+.modal-backdrop.show {
+  backdrop-filter: blur(4px);
+}
+.modal-header {
+  background: var(--color-primary);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+.modal-title {
+  margin: 0 auto;
+  font-size: 1.5rem;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.card {
+  border-radius: 0.75rem;
+}

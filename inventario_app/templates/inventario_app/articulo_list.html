@@ -1,0 +1,81 @@
+{% extends 'inventario_app/base_crud.html' %}
+{% block title %}Artículos{% endblock %}
+
+{% block extra_js %}
+  {{ block.super }}
+  <script>
+    const modalArt = new bootstrap.Modal('#modalCRUD');
+    document.getElementById('btnNuevo').onclick = ()=>{
+      document.getElementById('modalTitle').textContent = 'Nuevo Artículo';
+      document.getElementById('btnSubmit').textContent = 'Guardar';
+      document.getElementById('formCRUD').action = '{% url "articulo_create" %}';
+      fetch('{% url "articulo_create" %}')
+        .then(r=>r.text())
+        .then(html=>{
+          document.getElementById('modalBody').innerHTML = html;
+          modalArt.show();
+        });
+    };
+    document.querySelectorAll('.btnEdit').forEach(btn=>btn.onclick = ()=>{
+      let id = btn.dataset.id;
+      document.getElementById('modalTitle').textContent = 'Editar Artículo #'+id;
+      document.getElementById('btnSubmit').textContent = 'Actualizar';
+      let url = `/articulos/${id}/editar/`;
+      document.getElementById('formCRUD').action = url;
+      fetch(url)
+        .then(r=>r.text())
+        .then(html=>{
+          document.getElementById('modalBody').innerHTML = html;
+          modalArt.show();
+        });
+    });
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Artículos</h2>
+  <button id="btnNuevo" class="btn btn-warning">+ Nuevo Artículo</button>
+</div>
+<table class="table table-striped">
+  <thead class="table-warning">
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Tipo</th>
+      <th>Stock</th>
+      <th>Costo</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for art in articulos %}
+    <tr>
+      <td>{{ art.id }}</td>
+      <td>{{ art.descripcion }}</td>
+      <td>{{ art.tipo.descripcion }}</td>
+      <td>{{ art.stock }}</td>
+      <td>{{ art.costo_unitario }}</td>
+      <td>
+        {% if art.estado %}
+          Activo
+        {% else %}
+          Inactivo
+        {% endif %}
+      </td>
+      <td>
+        <button class="btn btn-link btn-sm btnEdit" data-id="{{ art.id }}">
+          <i class="fas fa-pen"></i>
+        </button>
+        <a href="{% url 'articulo_delete' art.id %}" class="btn btn-link btn-sm text-danger">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">No hay artículos.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'inventario_app/base.html' %}
+{% load static %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+  <div class="home-header">
+    <h1>Sistema de Inventario y Contabilidad</h1>
+    <p>Gestiona tus tipos, artículos, almacenes y transacciones de forma ágil y profesional.</p>
+  </div>
+
+  <div class="cards-container">
+    <a class="card-link" href="{% url 'tipo_list' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-box"></i>
+          <h5 class="card-title">Tipos de Inventario</h5>
+          <p class="card-text">Define y administra tus categorías de inventario.</p>
+        </div>
+      </div>
+    </a>
+    <a class="card-link" href="{% url 'articulo_list' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-shopping-cart"></i>
+          <h5 class="card-title">Artículos</h5>
+          <p class="card-text">Crea, edita y consulta tus productos.</p>
+        </div>
+      </div>
+    </a>
+    <a class="card-link" href="{% url 'almacen_list' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-warehouse"></i>
+          <h5 class="card-title">Almacenes</h5>
+          <p class="card-text">Gestiona ubicaciones y disponibilidad.</p>
+        </div>
+      </div>
+    </a>
+
+    <a class="card-link" href="{% url 'transaccion_list' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-sync-alt"></i>
+          <h5 class="card-title">Transacciones</h5>
+          <p class="card-text">Registra entradas, salidas, ajustes y traslados.</p>
+        </div>
+      </div>
+    </a>
+    <a class="card-link" href="{% url 'reporte_existencias' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-chart-bar"></i>
+          <h5 class="card-title">Existencias</h5>
+          <p class="card-text">Consulta el stock actual de todos los artículos.</p>
+        </div>
+      </div>
+    </a>
+    <a class="card-link" href="{% url 'reporte_movimientos' %}">
+      <div class="card">
+        <div class="card-body">
+          <i class="fas fa-list"></i>
+          <h5 class="card-title">Movimientos</h5>
+          <p class="card-text">Filtra y revisa el histórico de transacciones.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+{% endblock %}

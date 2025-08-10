@@ -1,0 +1,5 @@
+<!-- inventario_app/templates/inventario_app/tipo_form.html -->
+{% csrf_token %}
+<div class="mb-3">{{ form.descripcion.label_tag }}{{ form.descripcion }}<div class="invalid-feedback">{{ form.descripcion.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.cuenta_contable.label_tag }}{{ form.cuenta_contable }}<div class="invalid-feedback">{{ form.cuenta_contable.errors.as_text }}</div></div>
+<div class="form-check mb-3">{{ form.estado }} {{ form.estado.label_tag }}</div>

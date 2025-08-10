@@ -1,0 +1,8 @@
+<!-- inventario_app/templates/inventario_app/transaccion_form.html -->
+{% csrf_token %}
+<div class="mb-3">{{ form.tipo.label_tag }}{{ form.tipo }}<div class="invalid-feedback">{{ form.tipo.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.articulo.label_tag }}{{ form.articulo }}<div class="invalid-feedback">{{ form.articulo.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.almacen_origen.label_tag }}{{ form.almacen_origen }}<div class="invalid-feedback">{{ form.almacen_origen.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.almacen_destino.label_tag }}{{ form.almacen_destino }}<div class="invalid-feedback">{{ form.almacen_destino.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.cantidad.label_tag }}{{ form.cantidad }}<div class="invalid-feedback">{{ form.cantidad.errors.as_text }}</div></div>
+<div class="mb-3">{{ form.monto.label_tag }}{{ form.monto }}<div class="invalid-feedback">{{ form.monto.errors.as_text }}</div></div>

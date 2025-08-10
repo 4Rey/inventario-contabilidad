@@ -1,0 +1,90 @@
+{% extends 'inventario_app/base_crud.html' %}
+{% block title %}Contabilizar{% endblock %}
+
+{% block content %}
+  <div class="container py-4">
+    <h2 class="mb-4">Enviar a Contabilidad</h2>
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="post" class="row g-3 mb-4 needs-validation" novalidate>
+          {% csrf_token %}
+          <div class="col-md-3">
+            {{ form.fecha_desde.label_tag }}
+            {{ form.fecha_desde }}
+          </div>
+          <div class="col-md-3">
+            {{ form.fecha_hasta.label_tag }}
+            {{ form.fecha_hasta }}
+          </div>
+          <div class="col-md-4 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-secondary" name="action" value="consultar">
+              Consultar
+            </button>
+            <button type="submit" class="btn btn-warning"
+                    name="action" value="contabilizar"
+                    {% if pendientes_count|default:0 == 0 %}disabled{% endif %}>
+              Contabilizar
+            </button>
+          </div>
+        </form>
+
+        <div class="table-responsive">
+          <table class="table table-hover table-striped table-bordered table-sm align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Fecha</th>
+                <th class="text-end">Monto</th>
+                <th>Estado</th>
+                <th>ID Asiento</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% if transacciones and transacciones|length > 0 %}
+                {% for t in transacciones %}
+                  <tr>
+                    <td>{{ t.id }}</td>
+                    <td>{{ t.get_tipo_display }}</td>
+                    <td>{{ t.fecha|date:"Y-m-d H:i" }}</td>
+                    <td class="text-end">{{ t.monto|floatformat:2 }}</td>
+                    <td>
+                      {% if t.id_asiento %}
+                        <span class="badge bg-success">Contabilizado</span>
+                      {% else %}
+                        <span class="badge bg-secondary">Pendiente</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ t.id_asiento|default:"—" }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="6" class="text-center text-muted">
+                    Sin resultados. Elige fechas y pulsa “Consultar”.
+                  </td>
+                </tr>
+              {% endif %}
+            </tbody>
+
+            <tfoot>
+              <tr class="fw-bold">
+                <td colspan="3">Total:</td>
+                <td class="text-end">{{ total_monto|floatformat:2 }}</td>
+                <td colspan="2"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        {% if pendientes_count|default:0 > 0 %}
+          <small class="text-muted">
+            Pendientes en el rango: {{ pendientes_count }}
+          </small>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
